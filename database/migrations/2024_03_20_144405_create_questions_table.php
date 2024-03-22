@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->string('question');
-            $table->string('user_id');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->integer('count');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
