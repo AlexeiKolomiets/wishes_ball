@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('main');
+Route::group(['namespace' => 'App\Http\Controllers'], function()
+{   
+
+    Route::group(['middleware' => ['guest'], 'namespace' => 'Auth' ], function() {
+
+        Route::get('/auth', 'AuthController@show')->name('auth.show');
+        Route::post('/auth', 'AuthController@auth')->name('auth.perform');
+
+    });
+
+    Route::group(['middleware' => ['auth']], function() {
+        Route::get('/', 'HomeController@index')->name('main');
+        Route::post('/', 'HomeController@questions')->name('question');
+    });
+
+
+
 });

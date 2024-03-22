@@ -2,13 +2,29 @@
 
 @section ('content')
 
-        <h1>Хотите задать вопрос Шару желаний?</h1>
-        <form method="POST" action="login">
-        <label for="name">Введите свое имя</label>
-        <input type="text" name="name" id="name">
-        <label for="password" name="password" id="password">Пароль</label>
-        <input type="text" name="password" id="password">
-        <button type="submit">Войти</button>
-    </form>
-    
+    @if (\Session::has('message'))
+        <div class="welcome-message">
+            <p>{!! \Session::get('message') !!}</p>
+        </div>
+    @else
+        <div class="welcome-message">
+            <p>{!! \Auth::user()->username !!}</p>
+        </div>
+    @endif
+
+    <div class="ball">
+        <div class="whitesurface">
+            <p id="response">Задай свой вопрос</p>
+        </div>
+    </div>
+    <div class="inputfield">
+        <form action="" method="post">
+            @csrf
+            <input type="text" name="question" id="question" placeholder="...?">
+            <button type="submit" id="btn-question">Получить ответ</button>
+        </form>
+    </div>
+    <div class="counts">
+    </div>
+
 @endsection
