@@ -6,7 +6,7 @@ $.ajaxSetup({
 
 $("#question").on('input',function(){
  const regex = new RegExp("");
- if($("#question").val().match(/^(?=.*[A-ZА-Я0-9])[\w.,\s]+\?$/i)){
+ if($("#question").val().match(/[,\p{L}\d\s]+\?$/iu)){
     $("button#btn-question").css("display", "block");
  }
  else{
