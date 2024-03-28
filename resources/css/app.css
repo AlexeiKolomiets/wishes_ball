@@ -6,7 +6,7 @@
 }
 body{
     min-height: 100vh;
-    overflow: scroll;
+    overflow-y: scroll;
     background-color: rgb(65,0,109);
 }
 .container{
