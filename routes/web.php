@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['namespace' => 'App\Http\Controllers'], function()
-{   
-
+{
     Route::group(['middleware' => ['guest'], 'namespace' => 'Auth' ], function() {
 
         Route::get('/auth', 'AuthController@show')->name('auth.show');
@@ -25,9 +24,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::group(['middleware' => ['auth']], function() {
         Route::get('/', 'HomeController@index')->name('main');
-        Route::post('/', 'HomeController@questions')->name('question');
+        Route::post('/', 'HomeController@answerToQuestion')->name('question');
     });
-
-
-
 });

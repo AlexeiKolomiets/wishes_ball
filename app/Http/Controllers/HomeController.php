@@ -15,7 +15,7 @@ class HomeController extends Controller
         return view('main');
     }
 
-    public function questions(Request $req)
+    public function answerToQuestion(Request $req)
     {
 
         if (!$req->ajax()) {
@@ -34,6 +34,8 @@ class HomeController extends Controller
 
         $user_id = Auth::user()->id;
 
+        /* We update the counter if this user has previously asked this question.
+        Otherwise, we create a new record. */
         $question = Questions::updateOrCreate(
             [
                 'question' => $req->input('question'),
