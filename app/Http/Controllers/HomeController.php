@@ -15,9 +15,10 @@ class HomeController extends Controller
         return view('main');
     }
 
-    public function questions(Request $req){
+    public function questions(Request $req)
+    {
 
-        if(!$req->ajax()){
+        if (!$req->ajax()) {
             abort('404');
         }
 
@@ -25,18 +26,20 @@ class HomeController extends Controller
             'question' => 'required|string|min:2|max:200'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
-                'errors' => $validator->errors() 
+                'errors' => $validator->errors()
             ]);
         }
 
         $user_id = Auth::user()->id;
 
         $question = Questions::updateOrCreate(
-            ['question' => $req->input('question'),
-            'user_id' => $user_id],
-            ['count' =>Questions::raw("IF(ISNULL(count),1,count+1)")]
+            [
+                'question' => $req->input('question'),
+                'user_id' => $user_id
+            ],
+            ['count' => Questions::raw("IF(ISNULL(count),1,count+1)")]
         );
 
         $user_count = Questions::where('user_id', $user_id)->where('question', $req->input('question'))->value('count');
