@@ -36,8 +36,6 @@ $("#btn-question").click(function (e) {
                 var others_count = data.others_count;
                 var user_count_response = "";
                 var others_count_response = "";
-                var user_count_last_symbol = user_count.toString().slice(-1);
-                var others_count_last_symbol = others_count.toString().slice(-1);
 
                 if (answer == "Сконцентрируйся и спроси опять") {
                     $("#response").css('font-size', '14px');
@@ -48,29 +46,9 @@ $("#btn-question").click(function (e) {
 
                 $("#response").html(answer);
                 $(".counts").empty();
-                if (user_count_last_symbol == "2" || user_count_last_symbol == "3" || user_count_last_symbol == "4") {
-                    if (user_count != "12" && user_count != "13" && user_count != "14") {
-                        user_count_response = "<p>Ты задавал этот вопрос " + user_count + " раза</p>";
-                    }
-                    else {
-                        user_count_response = "<p>Ты задавал этот вопрос " + user_count + " раз</p>";
-                    }
-                }
-                else {
-                    user_count_response = "<p>Ты задавал этот вопрос " + user_count + " раз</p>";
-                }
 
-                if (others_count_last_symbol == "2" || others_count_last_symbol == "3" || others_count_last_symbol == "4") {
-                    if (others_count != "12" && others_count != "13" && others_count != "14") {
-                        others_count_response = "<p>Другие посетители задавали этот вопрос " + others_count + " раза</p>";
-                    }
-                    else {
-                        others_count_response = "<p>Другие посетители задавали этот вопрос " + others_count + " раз</p>";
-                    }
-                }
-                else {
-                    others_count_response = "<p>Другие посетители задавали этот вопрос " + others_count + " раз</p>";
-                }
+                user_count_response = "<p>Ты задавал этот вопрос " + user_count + " " + endOfPhrase(user_count) + "</p>";
+                others_count_response = "<p>Другие посетители задавали этот вопрос " + others_count + " " + endOfPhrase(others_count) + "</p>";
 
                 $(".counts").append(user_count_response);
                 $(".counts").append(others_count_response);
@@ -81,6 +59,25 @@ $("#btn-question").click(function (e) {
         },
     });
 });
+
+function endOfPhrase(count) {
+    var count_last_symbol = count.toString().slice(-1);
+    var endOfPhrase = "";
+
+    if (count_last_symbol == "2" || count_last_symbol == "3" || count_last_symbol == "4") {
+        if (count != "12" && count != "13" && count != "14") {
+            endOfPhrase = "раза";
+        }
+        else {
+            endOfPhrase = "раз";
+        }
+    }
+    else {
+        endOfPhrase = "раз";
+    }
+
+    return endOfPhrase;
+};
 
 $(document).ready(function () {
     if ($("#welcome").length) {
